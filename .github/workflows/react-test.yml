@@ -82,29 +82,29 @@ jobs:
       if: github.event_name=='workflow_dispatch'
       runs-on: ubuntu-latest
       steps:
-          - name: checkout repo
-            uses: actions/checkout@v4
+        - name: checkout repo
+          uses: actions/checkout@v4
           
-          - name: set up terraform
-            uses: hashicorp/setup-terraform@v3
-            with:
-              terraform_version: latest
+        - name: set up terraform
+          uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: latest
           
-          - name: aws credentials
-            uses: aws-actions/configure-aws-credentials@v4
-            with:
-              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-              aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-              aws-region: eu-central-1
+        - name: aws credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+            aws-region: eu-central-1
           
-          - name: terraform init
-            run: terraform init
-            working-directory: ./terraform
-            
-          - name: terraform destroying with auto approval
-            run: terraform destroy --auto-approve
-            working-directory: ./terraform
+        - name: terraform init
+          run: terraform init
+          working-directory: ./terraform
+
+        - name: terraform destroying with auto approval
+          run: terraform destroy --auto-approve
+          working-directory: ./terraform
       # deploy:
       #   name: infrastructure deployment
       #   runs-on: ubuntu latest
