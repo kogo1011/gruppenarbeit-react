@@ -72,6 +72,7 @@ jobs:
 
           - name: terraform applying with auto approval
             run: terraform apply --auto-approve
+            working-directory: ./terraform
 
         # - name: terraform validation
         #   run: terraform validate
