@@ -72,6 +72,19 @@ jobs:
           - name: install ansible
             run: sudo apt-get install ansible -y
 
+          - name: Generiere Ansible Inventory
+            working-directory: ./terraform
+            run: |
+              echo "[webserver]" >> ../ansible/inventory.ini
+              cat ../ansible/inventory.ini
+              terraform output -json >> meineOutputs.json
+              if [ -s meineOutputs.json ]; then
+              jq -r ".public_ips.value[]" meineOutputs.json >> ../ansible/inventory.ini
+              cat ../ansible/inventory.ini
+              else
+                echo "Terraform outputs are empty or invalid."
+              fi
+
         # - name: terraform validation
         #   run: terraform validate
         #   working-directory: ./terraform
