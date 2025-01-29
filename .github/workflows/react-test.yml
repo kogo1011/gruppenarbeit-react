@@ -70,7 +70,7 @@ jobs:
             working-directory: ./terraform
 
           - name: install ansible
-            run: sudo yum install ansible -y
+            run: sudo apt-get install ansible -y
 
         # - name: terraform validation
         #   run: terraform validate
