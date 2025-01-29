@@ -69,6 +69,9 @@ jobs:
             run: terraform apply --auto-approve
             working-directory: ./terraform
 
+          - name: install ansible
+            run: sudo yum install ansible -y
+
         # - name: terraform validation
         #   run: terraform validate
         #   working-directory: ./terraform
