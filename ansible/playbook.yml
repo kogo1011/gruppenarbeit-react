@@ -1,0 +1,37 @@
+- name: deploying react app with docker
+  hosts: webserver
+  become: yes
+  collections:
+    - community.docker
+
+  tasks:
+    - name: system update
+      yum:
+        name: "*"
+        state: latest
+
+    - name: docker install
+      yum:
+        name: docker
+        state: present
+
+    - name: docker start and activate
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: docker image pull from hub
+      community.docker.docker_image:
+        name: "kogo1011/gruppenarbeit-react:1"
+        tag: 1
+        source: pull
+
+    - name: docker container start
+      community.docker.docker_container:
+        name: react-app-conti
+        image: "kogo1011/gruppenarbeit-react:1"
+        state: started
+        restart_policy: always
+        published_ports:
+          - "80:80"
