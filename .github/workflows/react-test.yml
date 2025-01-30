@@ -72,6 +72,9 @@ jobs:
           - name: install ansible
             run: sudo apt-get install ansible -y
 
+          - name: install jq for json output
+            run: sudo apt-get install jq
+            
           - name: Generiere Ansible Inventory
             working-directory: ./terraform
             run: |
